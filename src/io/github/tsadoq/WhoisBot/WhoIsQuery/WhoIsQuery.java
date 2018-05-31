@@ -42,7 +42,12 @@ public class WhoIsQuery {
         System.out.println("server is "+server);
         this.url = url;
         try{
-            client.connect(server);
+            if(!server.isEmpty()) client.connect(server);
+            else
+            {
+                System.err.println("Server string is empty");
+                throw new Exception();
+            }
             String buffer = client.query(this.url);
             this.reply.append(buffer);
             client.disconnect();
