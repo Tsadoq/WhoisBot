@@ -26,31 +26,47 @@
 
 
 package io.github.tsadoq.WhoisBot.WhoIsQuery;
-import org.apache.commons.net.whois.WhoisClient;
 
-public class WhoIsQuery {
-    private String url;
-    private StringBuilder reply;
-    private WhoisClient client;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Scanner;
 
+public class WhoisServerList {
+    private HashMap<String,String> list = new HashMap<>();
 
-    public StringBuilder getReply() {
-        return reply;
-    }
+    public WhoisServerList() {
 
-    public WhoIsQuery(String url, String server) {
-        System.out.println("server is "+server);
-        this.url = url;
-        try{
-            client.connect(server);
-            String buffer = client.query(this.url);
-            this.reply.append(buffer);
-            client.disconnect();
-        } catch(Exception e){
+        URL pageWhoisServerList = null;
+
+        try {
+            pageWhoisServerList = new URL("https://raw.githubusercontent.com/Tsadoq/Whois-Server-List/master/whoislist.txt");
+        } catch (MalformedURLException e) {
+            System.err.println("Error in the Url");
+        }
+
+        InputStream in = null;
+        try {
+            in = pageWhoisServerList.openStream();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        Scanner scanner = new Scanner(in);
+
+        while (scanner.hasNextLine()) {
+            String[] line = scanner.nextLine().split(",");
+            list.put(line[0],line[1]);
+        }
+
+        System.out.println("HashMap has been filled.");
+    }
+
+    public String getServer(String url){
+        String[] split = url.split("\\.");
+        return list.get(split[split.length-1]);
+
     }
 
 }
-
-
