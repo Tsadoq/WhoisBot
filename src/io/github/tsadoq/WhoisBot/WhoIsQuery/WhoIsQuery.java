@@ -30,8 +30,8 @@ import org.apache.commons.net.whois.WhoisClient;
 
 public class WhoIsQuery {
     private String url;
-    private StringBuilder reply;
-    private WhoisClient client;
+    private StringBuilder reply = new StringBuilder("");
+    private WhoisClient client = new WhoisClient();;
 
 
     public StringBuilder getReply() {
@@ -39,7 +39,6 @@ public class WhoIsQuery {
     }
 
     public WhoIsQuery(String url, String server) {
-        System.out.println("server is "+server);
         this.url = url;
         try{
             if(!server.isEmpty()) client.connect(server);

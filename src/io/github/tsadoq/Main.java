@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         WhoisServerList db = new WhoisServerList();
-        WhoIsQuery query = new WhoIsQuery("polito.it",db.getServer("polito.it"));
+        WhoIsQuery query = new WhoIsQuery("egypt.travel",db.getServer("egypt.travel"));
         System.out.println(query.getReply());
 
     }
