@@ -29,9 +29,9 @@ package io.github.tsadoq.WhoisBot.WhoIsQuery;
 import org.apache.commons.net.whois.WhoisClient;
 
 public class WhoIsQuery {
-    private String url;
+    private String url; //url to be queried
     private StringBuilder reply = new StringBuilder("");
-    private WhoisClient client = new WhoisClient();;
+    private WhoisClient client = new WhoisClient(); //client for the query
 
 
     public StringBuilder getReply() {
@@ -41,13 +41,13 @@ public class WhoIsQuery {
     public WhoIsQuery(String url, String server) {
         this.url = url;
         try{
-            if(!server.isEmpty()) client.connect(server);
+            if(!server.isEmpty()) client.connect(server); //if read correctly connect to the whois server
             else
             {
                 System.err.println("Server string is empty");
                 throw new Exception();
             }
-            String buffer = client.query(this.url);
+            String buffer = client.query(this.url); //query the server
             this.reply.append(buffer);
             client.disconnect();
         } catch(Exception e){

@@ -35,14 +35,14 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class WhoisServerList {
-    private HashMap<String,String> list = new HashMap<>();
+    private HashMap<String,String> list = new HashMap<>(); //list of the domains and their whois servers
 
     public WhoisServerList() {
 
         URL pageWhoisServerList = null;
 
         try {
-            pageWhoisServerList = new URL("https://raw.githubusercontent.com/Tsadoq/Whois-Server-List/master/whoislist.txt");
+            pageWhoisServerList = new URL("https://raw.githubusercontent.com/Tsadoq/Whois-Server-List/master/whoislist.txt"); //download the page with the list of whois servers and domains
         } catch (MalformedURLException e) {
             System.err.println("Error in the Url");
         }
@@ -64,7 +64,7 @@ public class WhoisServerList {
     }
 
     public String getServer(String url){
-        String[] split = url.split("\\.");
+        String[] split = url.split("\\."); //get the domain from the url
         return list.get(split[split.length-1]);
 
     }
