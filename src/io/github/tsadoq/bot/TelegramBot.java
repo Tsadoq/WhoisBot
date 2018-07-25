@@ -26,6 +26,56 @@
 
 
 package io.github.tsadoq.bot;
+import io.github.tsadoq.WhoisBot.WhoIsQuery.WhoIsQuery;
+import io.github.tsadoq.WhoisBot.WhoIsQuery.WhoisServerList;
+import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-public class TelegramBot {
+public class TelegramBot extends TelegramLongPollingBot{
+    private String name = "Domain_lookup_Bot";
+    private String token = "593363111:AAEPhAZzB6zMY8PfPeB9Ta_6udl1KSvUmzs";
+    private WhoisServerList db;
+
+    public TelegramBot() {
+        this.db = new WhoisServerList();
+    }
+
+    @Override
+    public void onUpdateReceived(Update update){
+        if (update.hasMessage() && update.getMessage().hasText()) {
+
+            SendMessage message = new SendMessage()
+                    .setChatId(update.getMessage().getChatId())
+                    .setText("Your query is being processed");
+            try {
+                execute(message); // Call method to send the message
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+            String url =update.getMessage().getText();
+            WhoIsQuery query = new WhoIsQuery(url,db.getServer(url));
+
+            SendMessage message = new SendMessage()
+                    .setChatId(update.getMessage().getChatId())
+                    .setText(query.getReply().toString());
+            try {
+                execute(message); // Call method to send the message
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public String getBotUsername() {
+        return name;
+    }
+
+    @Override
+    public String getBotToken() {
+        return token;
+    }
 }
