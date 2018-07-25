@@ -2,4 +2,4 @@
 
 Very Simple Java Telegram Bot to query WhoIs Servers for different domains.
 
-[Download JAR](example.com)
+[Download JAR](https://github.com/Tsadoq/WhoisBot/blob/master/WhoisBot.jar)
