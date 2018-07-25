@@ -35,7 +35,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 public class TelegramBot extends TelegramLongPollingBot{
     private String name = "Domain_lookup_Bot";
-    private String token = "593363111:AAEPhAZzB6zMY8PfPeB9Ta_6udl1KSvUmzs";
+    private String token = "nope"; //this is not the token obv
     private WhoisServerList db;
 
     public TelegramBot() {
